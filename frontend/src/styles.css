@@ -1,0 +1,162 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111111;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+header {
+  border-bottom: 1px solid #111;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #444;
+  margin: 0;
+  font-style: italic;
+}
+
+section {
+  margin-top: 2.75rem;
+}
+
+section h2 {
+  font-size: 1.1rem;
+  text-transform: none;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+section h3 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  font-family: inherit;
+}
+
+.search-form input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #111;
+  border-radius: 0;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  color: #111;
+}
+
+button {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid #111;
+  border-radius: 0;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+
+button:hover {
+  background: #333;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.result-list,
+.tracked-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.result-list li,
+.tracked-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border: 1px solid #ddd;
+  margin-bottom: 0.5rem;
+  background: #fff;
+}
+
+.tracked-list li {
+  cursor: pointer;
+}
+
+.tracked-list li.selected {
+  border: 1px solid #111;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.error {
+  color: #111;
+  font-weight: bold;
+  border-left: 3px solid #111;
+  padding-left: 0.75rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  background: #fff;
+}
+
+th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #111;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+tr.outcome-success td:nth-child(2) {
+  font-weight: 700;
+}
+
+tr.outcome-retried td:nth-child(2) {
+  font-style: italic;
+}
+
+tr.outcome-failed td:nth-child(2) {
+  text-decoration: underline;
+}
