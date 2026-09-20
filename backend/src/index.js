@@ -16,6 +16,8 @@ app.get('/api/health', (req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
 });
 
+app.get('/health', (req, res) => res.json({ ok: true }));
+
 app.use('/api/search', searchRouter);
 app.use('/api/tracked', trackedRouter);
 app.use('/api/tracked', historyRouter); // adds /:id/history and /:id/log
