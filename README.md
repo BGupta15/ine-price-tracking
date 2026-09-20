@@ -1,6 +1,6 @@
 # Product Price Tracker
 
-A small full-stack app that tracks product prices on INE's mock store. You search for a product, start tracking it, and the app checks its price and stock every 2 hours. Each tracked product gets a price chart, a history table, and a scrape log that lists every attempt, including the ones that failed.
+A small full-stack app that tracks product prices on INE's mock store. You search for a product, start tracking it, and the app checks its price and stock every 5 minutes. Each tracked product gets a price chart, a history table, and a scrape log that lists every attempt, including the ones that failed.
 
 - **Live site:** ine-price-tracking.vercel.app
 - **Backend API:** https://ine-price-tracking.onrender.com
@@ -10,7 +10,7 @@ A small full-stack app that tracks product prices on INE's mock store. You searc
 
 - Search the store's catalog by full or partial product name.
 - Track a product. It is saved to the database and scraped right away, so you don't wait for the next scheduled run.
-- Check every tracked product for its current price and stock every 2 hours.
+- Check every tracked product for its current price and stock every 15 minutes.
 - See a price chart, a history table (price, in stock, stock quantity) and a scrape log for each product.
 - Every scrape attempt is logged as `success`, `retried` or `failed`, with the number of attempts and a short detail message.
 
@@ -27,7 +27,7 @@ A small full-stack app that tracks product prices on INE's mock store. You searc
 ## How it works
 
 1. When you click Track, the backend saves the product in Supabase and puts a first scrape in a queue. The request returns immediately and the scrape runs in the background.
-2. cron-job.org calls `POST /api/scrape/run` every 2 hours. The endpoint answers with `202` straight away and scrapes each tracked product in the background, one at a time.
+2. cron-job.org calls `POST /api/scrape/run` every 15 minutes. The endpoint answers with `202` straight away and scrapes each tracked product in the background, one at a time.
 3. Every attempt is written to `scrape_log`. Only a successful scrape that produced a price is written to `price_history`, so a failure never leaves a wrong or empty data point in the history.
 4. The dashboard reads both tables and shows the latest price, the chart, the history and the log.
 
@@ -138,8 +138,8 @@ Do these in order. The cron jobs come last because they call the backend's publi
 4. **Vercel (frontend).** Import the repo, set Root Directory to `frontend` and keep the Vite preset. Add `VITE_API_BASE_URL` with your Render URL and deploy. Vite bakes this value in at build time, so redeploy if you change it.
 5. **Render again.** Set `FRONTEND_ORIGIN` to your Vercel URL and let it redeploy. Without this the browser blocks the frontend's API calls.
 6. **cron-job.org.** Create two jobs:
-   - `POST hhttps://ine-price-tracking.onrender.com/api/scrape/run?secret=YOUR_SECRET` every 2 hours.
-   - `GET https://ine-price-tracking.onrender.com/health` every 10 minutes.
+   - `POST hhttps://ine-price-tracking.onrender.com/api/scrape/run?secret=YOUR_SECRET` every 15 minutes.
+   - `GET https://ine-price-tracking.onrender.com/health` every 15 minutes.
    - The secret in the first URL must match `SCRAPE_TRIGGER_SECRET` on Render exactly, or every call returns 401. Use the Test run button and expect a `202`.
 7. **Check it.** Open the live site, search for a product and track it. It should change from "Scraping now..." to a price, and the history and scrape log should fill in.
 
